@@ -17,7 +17,8 @@ class HomePage extends StatelessWidget {
         height: _deviceHeight,
         width: _deviceWidth,
         padding: EdgeInsets.symmetric(horizontal: _deviceWidth * 0.03, vertical: _deviceHeight * 0.03),
-        child: Column(
+        child: Stack(children: [
+          Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           //mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,6 +39,8 @@ class HomePage extends StatelessWidget {
                 ],
               )
           ],),
+          Align(alignment: Alignment.centerRight, child:_astronautImageWidget()),
+        ],)
       ),
     );
   }
@@ -45,6 +48,8 @@ class HomePage extends StatelessWidget {
   // Returns a Container widget with the image of the Astronaut
   Widget _astronautImageWidget() {
     return Container(
+      height: _deviceHeight * 0.5,
+      width: _deviceWidth * 0.65,
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/images/astro_moon.png"),
