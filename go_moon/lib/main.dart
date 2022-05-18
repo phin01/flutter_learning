@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'GoMoon App',
       theme: ThemeData(scaffoldBackgroundColor: const Color.fromRGBO(31, 31, 21, 1.0),),
-      home: const HomePage(),
+      home: const SafeArea(child: HomePage(),),
     );
   }
 
