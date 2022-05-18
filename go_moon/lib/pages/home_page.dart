@@ -78,12 +78,12 @@ class HomePage extends StatelessWidget {
 
   Widget _travelersInformationWidget() {
     List<String> ddStrings = ['Traveler #1', 'Traveler #2', 'Traveler #3'];
-    return CustomDropDownButton(values: ddStrings, width: (_deviceWidth - 64) * 0.5);
+    return CustomDropDownButton(values: ddStrings, width: (_deviceWidth - 64) * 0.45);
   }
 
   Widget _flightClassWidget() {
     List<String> ddStrings = ['Economy', 'Business', 'First Class'];
-    return CustomDropDownButton(values: ddStrings, width: (_deviceWidth - 64) * 0.5);
+    return CustomDropDownButton(values: ddStrings, width: (_deviceWidth - 64) * 0.45);
   }
 
   Widget _rideButtonWidget() {
