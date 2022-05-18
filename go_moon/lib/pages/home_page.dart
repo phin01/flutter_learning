@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_moon/widgets/custom_dropdown.dart';
 
 class HomePage extends StatelessWidget {
 
@@ -54,37 +55,8 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _destinationDropDownWidget() {
-
-    List<String> ddStrings = ['Station1', 'Station2', 'Station3'];
-    List<DropdownMenuItem<String>> ddItems = ddStrings.map((String ddString) {
-        return DropdownMenuItem<String>(
-          value: ddString,
-          child: Text(ddString),
-        );
-      }
-    ).toList();
-    
-    return Container(
-      // styling outside dropdown
-      decoration: BoxDecoration(
-        color:  const Color.fromRGBO(53, 53, 53, 1.0),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      width: _deviceWidth,
-      padding: EdgeInsets.symmetric(horizontal: _deviceWidth * 0.05),
-
-      child: DropdownButton(
-        // styling inside dropdown
-        underline: Container(),
-        dropdownColor: const Color.fromRGBO(53, 53, 53, 1.0),
-        style: const TextStyle(color: Colors.white),
-        
-        // data for dropdown
-        items: ddItems,
-        onChanged: (_) { },
-        value: ddStrings.first,
-        ),
-    );
+    List<String> ddStrings = ['Moon Station #1', 'Moon Station #2', 'Moon Station #3'];
+    return CustomDropDownButton(values: ddStrings, width: _deviceWidth);
   }
 
 }
