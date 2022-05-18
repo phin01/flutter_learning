@@ -23,9 +23,21 @@ class HomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _pageTitle(),
-            _destinationDropDownWidget(),
-          ],
-        ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max,
+                children: [
+                  Padding(padding: const EdgeInsets.all(8.0), child: _destinationDropDownWidget(),),
+                  Padding(padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0), child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        _travelersInformationWidget(),
+                        _flightClassWidget(),
+                      ], ), ),
+                  Padding(padding: const EdgeInsets.all(8.0), child: _destinationDropDownWidget(),),
+                ],
+              )
+          ],),
       ),
     );
   }
@@ -45,18 +57,30 @@ class HomePage extends StatelessWidget {
   // Returns a Text widget with the page's title
   Widget _pageTitle() {
     return const Text(
-      "#GoMoon",
+      "Flight Booker",
       style: TextStyle(
         color: Colors.white,
-        fontSize: 70,
+        fontSize: 50,
         fontWeight: FontWeight.bold,
       ),
     );
   }
 
   Widget _destinationDropDownWidget() {
-    List<String> ddStrings = ['Moon Station #1', 'Moon Station #2', 'Moon Station #3'];
+    List<String> ddStrings = ['Airport #1', 'Airport #2', 'Airport #3'];
     return CustomDropDownButton(values: ddStrings, width: _deviceWidth);
   }
+
+  Widget _travelersInformationWidget() {
+    List<String> ddStrings = ['Traveler #1', 'Traveler #2', 'Traveler #3'];
+    return CustomDropDownButton(values: ddStrings, width: (_deviceWidth - 64) * 0.5);
+  }
+
+  Widget _flightClassWidget() {
+    List<String> ddStrings = ['Economy', 'Business', 'First Class'];
+    return CustomDropDownButton(values: ddStrings, width: (_deviceWidth - 64) * 0.5);
+  }
+
+
 
 }
