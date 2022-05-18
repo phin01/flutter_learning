@@ -34,7 +34,7 @@ class HomePage extends StatelessWidget {
                         _travelersInformationWidget(),
                         _flightClassWidget(),
                       ], ), ),
-                  Padding(padding: const EdgeInsets.all(8.0), child: _destinationDropDownWidget(),),
+                  Padding(padding: const EdgeInsets.all(8.0), child: _rideButtonWidget(),),
                 ],
               )
           ],),
@@ -81,6 +81,24 @@ class HomePage extends StatelessWidget {
     return CustomDropDownButton(values: ddStrings, width: (_deviceWidth - 64) * 0.5);
   }
 
-
+  Widget _rideButtonWidget() {
+    return Container(
+      width: _deviceWidth,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: MaterialButton(
+        onPressed: () {},
+        child: const Text(
+          "Book Ride",
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 20,
+          ),
+        ),
+      ),
+    );
+  }
 
 }
