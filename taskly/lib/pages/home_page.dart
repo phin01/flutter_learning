@@ -30,6 +30,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: _tasklyAppBar(_deviceWidth, _deviceHeight),
       body: _tasksList(),
+      floatingActionButton: _addTaskButton(),
     );
   }
 
@@ -80,6 +81,16 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  // Button to Add Tasks
+  Widget _addTaskButton() {
+    return FloatingActionButton(
+      child: const Icon(
+        Icons.add,
+      ), // button icon
 
+      onPressed: () {
+      }
+    );
+  }
 }
 
