@@ -22,7 +22,6 @@ class _HomePageState extends State<HomePage> {
   late double _deviceHeight, _deviceWidth;
 
   // task variables
-  String? _newTaskContent;
   Box? _box;
 
   // blank constructor
@@ -121,11 +120,10 @@ class _HomePageState extends State<HomePage> {
       return AlertDialog(
         title: const Text('Add new Task'),
         content: TextField(
-          onSubmitted: (value) {},
-          onChanged: (value) {
-            setState(() {
-              _newTaskContent = value;  
-            });
+          onSubmitted: (value) {
+            Task newTask = Task(content: value, timestamp: DateTime.now(), done: false);
+            _box!.add(newTask.toMap());
+            Navigator.pop(context);
           },
         ),
       );
