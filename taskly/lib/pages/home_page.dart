@@ -69,14 +69,14 @@ class _HomePageState extends State<HomePage> {
       subtitle: Text(
         DateTime.now().toString(),
         style: const TextStyle(
-          color: Colors.green,
         ),
       ), // subtitle
 
       trailing: const Icon(
         Icons.check_box_outlined,
+        color: Colors.red,
       ), // trailing
-      
+
     );
   }
 
