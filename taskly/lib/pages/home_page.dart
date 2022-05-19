@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:taskly/models/task.dart';
 
 class HomePage extends StatefulWidget {
 
@@ -22,6 +23,7 @@ class _HomePageState extends State<HomePage> {
 
   // task variables
   String? _newTaskContent;
+  Box? _box;
 
   // blank constructor
   _HomePageState();
@@ -58,6 +60,7 @@ class _HomePageState extends State<HomePage> {
       future: Hive.openBox('tasks'),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if(snapshot.connectionState == ConnectionState.done) {
+          _box = snapshot.data;
           return _tasksList();
         } else {
           return const Center(child: CircularProgressIndicator());
@@ -68,32 +71,35 @@ class _HomePageState extends State<HomePage> {
 
   // ListView Widget
   Widget _tasksList() {
-    return ListView(
-      children: [
-        _tasksListElement(),
-      ],
-    );
+
+    // _box is defined prior to this Widget call, so we can be sure it is not null
+    List tasks = _box!.values.toList();
+    return ListView.builder(itemCount: tasks.length, itemBuilder: (BuildContext context, int index) {
+      Task currentTask = Task.fromMap(tasks[index]);
+      return _tasksListElement(currentTask);
+    },);
   }
 
   // Elements of the ListView
-  Widget _tasksListElement() {
+  Widget _tasksListElement(Task task) {
+
     return ListTile(
 
-      title: const Text(
-        'Do Laundry',
+      title: Text(
+        task.content,
         style: TextStyle(
-          decoration: TextDecoration.lineThrough,
+          decoration: task.done ? TextDecoration.lineThrough : null,
         ),
       ), // title
 
       subtitle: Text(
-        DateTime.now().toString(),
+        task.timestamp.toString(),
         style: const TextStyle(
         ),
       ), // subtitle
 
-      trailing: const Icon(
-        Icons.check_box_outlined,
+      trailing: Icon(
+        task.done ? Icons.check_box_outlined : Icons.check_box_outline_blank_outlined,
         color: Colors.red,
       ), // trailing
 
