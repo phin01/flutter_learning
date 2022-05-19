@@ -16,7 +16,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+  // device information
   late double _deviceHeight, _deviceWidth;
+
+  // task variables
+  String? _newTaskContent;
 
   // blank constructor
   _HomePageState();
@@ -84,13 +88,31 @@ class _HomePageState extends State<HomePage> {
   // Button to Add Tasks
   Widget _addTaskButton() {
     return FloatingActionButton(
+      onPressed: _displayTaskPopUp,
       child: const Icon(
         Icons.add,
       ), // button icon
-
-      onPressed: () {
-      }
     );
   }
+
+  void _displayTaskPopUp() {
+    showDialog(context: context, builder: (BuildContext context){
+      return AlertDialog(
+        title: const Text('Add new Task'),
+        content: TextField(
+          onSubmitted: (value) {},
+          onChanged: (value) {
+            setState(() {
+              _newTaskContent = value;  
+            });
+          },
+        ),
+      );
+    },);
+  }
+
+
+
+
 }
 
