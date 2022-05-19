@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
     return FutureBuilder(
       future: Hive.openBox('tasks'),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if(snapshot.connectionState == ConnectionState.done) {
+        if(snapshot.hasData) {
           _box = snapshot.data;
           return _tasksList();
         } else {
@@ -75,12 +75,12 @@ class _HomePageState extends State<HomePage> {
     List tasks = _box!.values.toList();
     return ListView.builder(itemCount: tasks.length, itemBuilder: (BuildContext context, int index) {
       Task currentTask = Task.fromMap(tasks[index]);
-      return _tasksListElement(currentTask);
+      return _tasksListElement(currentTask, index);
     },);
   }
 
   // Elements of the ListView
-  Widget _tasksListElement(Task task) {
+  Widget _tasksListElement(Task task, int boxIndex) {
 
     return ListTile(
 
@@ -101,6 +101,17 @@ class _HomePageState extends State<HomePage> {
         task.done ? Icons.check_box_outlined : Icons.check_box_outline_blank_outlined,
         color: Colors.red,
       ), // trailing
+
+      onTap: () {
+        task.done = !task.done;
+        _box!.putAt(boxIndex, task.toMap());  
+        setState(() {});
+      },
+
+      onLongPress: () {
+        _box!.deleteAt(boxIndex);
+        setState(() {});
+      },
 
     );
   }
