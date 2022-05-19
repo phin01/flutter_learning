@@ -29,10 +29,12 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: _tasklyAppBar(_deviceWidth, _deviceHeight),
+      body: _tasksList(),
     );
   }
 
 
+  // TaskBar Widget
   PreferredSizeWidget _tasklyAppBar(double deviceWidth, double deviceHeight) {
     return AppBar(
       toolbarHeight: deviceHeight * 0.15,
@@ -41,6 +43,40 @@ class _HomePageState extends State<HomePage> {
         style: TextStyle(
           fontSize: 25,
         ),),
+    );
+  }
+
+  // ListView Widget
+  Widget _tasksList() {
+    return ListView(
+      children: [
+        _tasksListElement(),
+      ],
+    );
+  }
+
+  // Elements of the ListView
+  Widget _tasksListElement() {
+    return ListTile(
+
+      title: const Text(
+        'Do Laundry',
+        style: TextStyle(
+          decoration: TextDecoration.lineThrough,
+        ),
+      ), // title
+
+      subtitle: Text(
+        DateTime.now().toString(),
+        style: const TextStyle(
+          color: Colors.green,
+        ),
+      ), // subtitle
+
+      trailing: const Icon(
+        Icons.check_box_outlined,
+      ), // trailing
+      
     );
   }
 
