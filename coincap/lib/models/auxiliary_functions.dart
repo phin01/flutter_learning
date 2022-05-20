@@ -14,3 +14,19 @@ class DropDownItemsBuilder {
     ).toList();
   }
 }
+
+class PageNavigator {
+  
+  PageNavigator();
+
+  Future<dynamic> goToPage(BuildContext context, Widget destinationPage) {
+    return Navigator.push(
+      context,
+       MaterialPageRoute(
+         builder: (context) {
+           return destinationPage;
+         }
+      )
+    );
+  }
+}
