@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 
-class DropDownItemsBuilder {
-
-  DropDownItemsBuilder();
-
-  List<DropdownMenuItem<String>> fromList(List<String> values) {
+List<DropdownMenuItem<String>> createDropDownItems(List<String> values) {
     return values.map((String ddString) {
         return DropdownMenuItem<String>(
           value: ddString,
@@ -13,13 +9,8 @@ class DropDownItemsBuilder {
       }
     ).toList();
   }
-}
 
-class PageNavigator {
-  
-  PageNavigator();
-
-  Future<dynamic> goToPage(BuildContext context, Widget destinationPage) {
+Future<dynamic> navigateToPage(BuildContext context, Widget destinationPage) {
     return Navigator.push(
       context,
        MaterialPageRoute(
@@ -29,4 +20,3 @@ class PageNavigator {
       )
     );
   }
-}
