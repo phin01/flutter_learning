@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:coincap/models/app_config.dart';
+import 'package:coincap/models/http_service.dart';
 import 'package:coincap/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,6 +11,7 @@ import 'package:get_it/get_it.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await _loadConfig();
+  _registerHttpService();
   runApp(const MyApp());
 }
 
@@ -22,6 +24,13 @@ Future<void> _loadConfig () async {
   // Create singleton instance of AppConfig class with information from loaded json file in Assets folder
   GetIt.instance.registerSingleton<AppConfig>(
     AppConfig(COIN_API_BASE_URL: configJson['COIN_API_BASE_URL'])
+  );
+}
+
+// create singleton instance of HttpService class, which will handle the API calls
+void _registerHttpService() {
+  GetIt.instance.registerSingleton<HttpService>(
+    HttpService()
   );
 }
 
