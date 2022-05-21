@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
       style: const TextStyle(
         color: Colors.white,
         fontSize: 40,),
-      onChanged: (ddSelection){
+      onChanged: (dynamic ddSelection){
         setState(() {
         _selectedCurrency = ddSelection.toString();
         });
@@ -93,12 +93,13 @@ class _HomePageState extends State<HomePage> {
             num dollarPrice = apiData['market_data']['current_price']['usd'];
             num dollarVariation = apiData['market_data']['price_change_percentage_24h_in_currency']['usd'];
             String description = apiData['description']['en'];
+            Map currencyRates = apiData['market_data']['current_price'];
 
             return Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             mainAxisSize: MainAxisSize.max,
             children: [
-              GestureDetector(onDoubleTap: () {navigateToPage(context, DetailsPage());},
+              GestureDetector(onDoubleTap: () {navigateToPage(context, DetailsPage(currencyRates: currencyRates,));},
                 child: _currencyImage(imageURL)),
               _currentPriceDollar(dollarPrice),
               _currentVariationDollar(dollarVariation),
