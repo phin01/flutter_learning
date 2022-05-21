@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:coincap/models/auxiliary_functions.dart';
 import 'package:coincap/models/http_service.dart';
+import 'package:coincap/pages/details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -20,12 +21,14 @@ class _HomePageState extends State<HomePage> {
 
   // instance of HttpService calls which will handle the API requests
   late HttpService _httpService;
+  late String _selectedCurrency;
 
   @override
   void initState() {
     super.initState();
     // initialize httpService singleton
     _httpService = GetIt.instance.get<HttpService>();
+    _selectedCurrency = 'bitcoin';
   }
 
   @override
@@ -55,9 +58,10 @@ class _HomePageState extends State<HomePage> {
 
   Widget _selectCoinDropDown() {
     List<String> cryptoList = ['bitcoin', 'ethereum', 'whatever'];
+
     return DropdownButton(
-      items: DropDownItemsBuilder().fromList(cryptoList), 
-      value: cryptoList.first,
+      items: createDropDownItems(cryptoList), 
+      value: _selectedCurrency,
       dropdownColor: const Color.fromRGBO(83, 88, 206, 1.0),
       iconSize: 30,
       icon: const Icon(
@@ -67,34 +71,43 @@ class _HomePageState extends State<HomePage> {
       style: const TextStyle(
         color: Colors.white,
         fontSize: 40,),
-      onChanged: (_){}
+      onChanged: (ddSelection){
+        setState(() {
+        _selectedCurrency = ddSelection.toString();
+        });
+      },
       );
   }
 
   Widget _dataWidgets() {
     return FutureBuilder(
-      future: _httpService.get('/coins/bitcoin'),
+      future: _httpService.get('/coins/$_selectedCurrency'),
       builder: (BuildContext context, AsyncSnapshot snapshot){
         if(snapshot.hasData) {
-          // full json response from API
-          Map apiData = jsonDecode(snapshot.data.toString());
-          
-          // required data for widgets
-          String imageURL = apiData['image']['large'];
-          num dollarPrice = apiData['market_data']['current_price']['usd'];
-          num dollarVariation = apiData['market_data']['price_change_percentage_24h_in_currency']['usd'];
-          String description = apiData['description']['en'];
+          try {
+            // full json response from API
+            Map apiData = jsonDecode(snapshot.data.toString());
 
-          return Column(
+            // required data for widgets
+            String imageURL = apiData['image']['large'];
+            num dollarPrice = apiData['market_data']['current_price']['usd'];
+            num dollarVariation = apiData['market_data']['price_change_percentage_24h_in_currency']['usd'];
+            String description = apiData['description']['en'];
+
+            return Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             mainAxisSize: MainAxisSize.max,
             children: [
-              _currencyImage(imageURL),
+              GestureDetector(onDoubleTap: () {navigateToPage(context, DetailsPage());},
+                child: _currencyImage(imageURL)),
               _currentPriceDollar(dollarPrice),
               _currentVariationDollar(dollarVariation),
               _currencyDescription(description)
             ],
           );
+          } catch(e) {
+            return const Center(child: Text('Crypto Currency data not found'));
+          }
         } else {
           // waiting for API to respond, render a progress indicator
           return const Center(child: CircularProgressIndicator(color: Colors.white,));
