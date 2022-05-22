@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:frivia/providers/game_page_provider.dart';
+import 'package:provider/provider.dart';
 
 class GamePage extends StatelessWidget {
 
   late double _deviceHeight, _deviceWidth;
+
+  late GamePageProvider _gamePageProvider;
+
   
   @override
   Widget build(BuildContext context) {
@@ -11,18 +16,27 @@ class GamePage extends StatelessWidget {
     _deviceHeight = MediaQuery.of(context).size.height;
     _deviceWidth = MediaQuery.of(context).size.width;
 
-    return _buildUI();
+    return ChangeNotifierProvider(
+      create: (BuildContext context) => GamePageProvider(context: context),
+      child: _buildUI(),
+    );
   }
 
-  // This widget will be the general placeholder for the game's UI
+  // This widget will build the game's UI with the provider to handle state changes
   Widget _buildUI() {
-    return SafeArea(
-      child: Scaffold(
-        body: Container(
-          padding: EdgeInsets.symmetric(vertical: _deviceHeight * 0.05, horizontal: _deviceWidth * 0.05),
-          child: _gameUI()
+    return Builder(
+      builder: (context) {
+        _gamePageProvider = context.watch<GamePageProvider>();
+        
+        return SafeArea(
+          child: Scaffold(
+            body: Container(
+              padding: EdgeInsets.symmetric(vertical: _deviceHeight * 0.05, horizontal: _deviceWidth * 0.05),
+              child: _gameUI()
+            ),
           ),
-      ),
+        );
+      }
     );
   }
 
