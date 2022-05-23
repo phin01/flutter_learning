@@ -27,8 +27,11 @@ class GamePage extends StatelessWidget {
     return Builder(
       builder: (context) {
         _gamePageProvider = context.watch<GamePageProvider>();
-        
-        return SafeArea(
+
+        // Load UI if questions have been loaded from API,
+        // Otherwise, load a circular progress indicator
+        if(_gamePageProvider.triviaQuestions != null) {
+          return SafeArea(
           child: Scaffold(
             body: Container(
               padding: EdgeInsets.symmetric(vertical: _deviceHeight * 0.05, horizontal: _deviceWidth * 0.05),
@@ -36,6 +39,9 @@ class GamePage extends StatelessWidget {
             ),
           ),
         );
+        } else {
+          return const Center(child: CircularProgressIndicator(color: Colors.white,));
+        }
       }
     );
   }
@@ -68,9 +74,9 @@ class GamePage extends StatelessWidget {
 
   // This widget will hold the trivia question
   Widget _questionText(){
-    return const Text(
-      "Test question here",
-      style: TextStyle(
+    return Text(
+      _gamePageProvider.getCurrentQuestionText(),
+      style: const TextStyle(
         color: Colors.white,
         fontSize: 25,
         fontWeight: FontWeight.w400,
@@ -84,7 +90,9 @@ class GamePage extends StatelessWidget {
       color: buttonColor,
       minWidth: _deviceWidth * 0.8,
       height: _deviceHeight * 0.1,
-      onPressed: () {},
+      onPressed: () {
+        _gamePageProvider.answerQuestion(buttonText);
+      },
       child: Text(buttonText, style: const TextStyle(color: Colors.white, fontSize: 18,),),
       );
   }
