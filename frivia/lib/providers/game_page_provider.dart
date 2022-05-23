@@ -11,9 +11,11 @@ class GamePageProvider extends ChangeNotifier {
   int _maxQuestions = 10;
   String _difficulty = 'easy';
   String _questionType = 'boolean';
+  int _correctAnswers = 0;
 
   List? triviaQuestions;
   int _currentQuestion = 0;
+  bool gameOver = false;
 
   GamePageProvider({required this.context}) {
     _dio.options.baseUrl = 'https://opentdb.com/api.php';
@@ -46,11 +48,14 @@ class GamePageProvider extends ChangeNotifier {
     // API answer is provided in proper case, but let's compare uppercase strings
     bool isCorrect = triviaQuestions![_currentQuestion]['correct_answer'].toUpperCase() == answer.toUpperCase();
 
+    // increment correct answers counter
+    isCorrect ? _correctAnswers++ : null;
+
     _playerAnswerFeedback(isCorrect);
 
     // increment current question counter and update UI
     if(_currentQuestion == _maxQuestions - 1) {
-
+      gameOver = true;
     } else {
       _currentQuestion++;  
     }
@@ -70,4 +75,12 @@ class GamePageProvider extends ChangeNotifier {
     await Future.delayed(const Duration(seconds: 1));
     Navigator.pop(context);
   }
+
+  String getEndResult() {
+    double percentageResult;
+    percentageResult = (_correctAnswers / _maxQuestions) * 100;
+    return "You answered ${percentageResult.toStringAsFixed(0)}% of the questions correctly";
+  }
+
+
 }
