@@ -35,7 +35,7 @@ class GamePage extends StatelessWidget {
           child: Scaffold(
             body: Container(
               padding: EdgeInsets.symmetric(vertical: _deviceHeight * 0.05, horizontal: _deviceWidth * 0.05),
-              child: _gameUI()
+              child: _gamePageProvider.gameOver ? _gameOverMessage() : _gameUI()
             ),
           ),
         );
@@ -95,5 +95,25 @@ class GamePage extends StatelessWidget {
       },
       child: Text(buttonText, style: const TextStyle(color: Colors.white, fontSize: 18,),),
       );
+  }
+
+  Widget _gameOverMessage() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const Text('Game Over!', style: TextStyle(fontSize: 50, color: Colors.white),),
+          Text(_gamePageProvider.getEndResult(), style: const TextStyle(fontSize: 25, color: Colors.white), textAlign: TextAlign.center,),
+          MaterialButton(
+            color: Colors.white,
+            minWidth: _deviceWidth * 0.8,
+            height: _deviceHeight * 0.1,
+            onPressed: () {},
+            child: const Text('New Game', style: TextStyle(color: Colors.black, fontSize: 30,),),
+          ),
+        ],
+      ),
+    );
   }
 }
