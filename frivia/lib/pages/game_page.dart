@@ -8,6 +8,10 @@ class GamePage extends StatelessWidget {
 
   late GamePageProvider _gamePageProvider;
 
+  late String difficulty;
+  late int maxQuestions;
+
+  GamePage({Key? key, required this.difficulty, required this.maxQuestions}) : super(key: key);
   
   @override
   Widget build(BuildContext context) {
@@ -17,7 +21,7 @@ class GamePage extends StatelessWidget {
     _deviceWidth = MediaQuery.of(context).size.width;
 
     return ChangeNotifierProvider(
-      create: (BuildContext context) => GamePageProvider(context: context),
+      create: (BuildContext context) => GamePageProvider(context: context, difficulty: difficulty, maxQuestions: maxQuestions),
       child: _buildUI(),
     );
   }
@@ -35,7 +39,7 @@ class GamePage extends StatelessWidget {
           child: Scaffold(
             body: Container(
               padding: EdgeInsets.symmetric(vertical: _deviceHeight * 0.05, horizontal: _deviceWidth * 0.05),
-              child: _gamePageProvider.gameOver ? _gameOverMessage() : _gameUI()
+              child: _gamePageProvider.gameOver ? _gameOverMessage(context) : _gameUI()
             ),
           ),
         );
@@ -97,7 +101,7 @@ class GamePage extends StatelessWidget {
       );
   }
 
-  Widget _gameOverMessage() {
+  Widget _gameOverMessage(BuildContext context) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -109,7 +113,9 @@ class GamePage extends StatelessWidget {
             color: Colors.white,
             minWidth: _deviceWidth * 0.8,
             height: _deviceHeight * 0.1,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context);
+            },
             child: const Text('New Game', style: TextStyle(color: Colors.black, fontSize: 30,),),
           ),
         ],
