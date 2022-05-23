@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +18,10 @@ class GamePageProvider extends ChangeNotifier {
   int _currentQuestion = 0;
   bool gameOver = false;
 
-  GamePageProvider({required this.context}) {
+  GamePageProvider({required this.context, required int maxQuestions, required String difficulty}) {
     _dio.options.baseUrl = 'https://opentdb.com/api.php';
+    _maxQuestions = maxQuestions;
+    _difficulty = difficulty;
     _getQuestionsFromAPI();
   }
 
