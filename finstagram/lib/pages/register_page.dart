@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:finstagram/models/auxiliary_functions.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +17,7 @@ class _RegisterPageState extends State<RegisterPage> {
   String? registerName;
   String? registerEmail;
   String? registerPassword;
+  File? registerAvatar;
 
   final GlobalKey<FormState> _registerFormKey = GlobalKey<FormState>();
 
@@ -29,7 +33,7 @@ class _RegisterPageState extends State<RegisterPage> {
           padding: EdgeInsets.symmetric(horizontal: _deviceWidth * 0.05),
           child: Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -57,18 +61,50 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Widget _registerForm() {
     return Container(
-      height: _deviceHeight * 0.4,
+      height: _deviceHeight * 0.5,
       child: Form(
         key: _registerFormKey,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            _registerAvatarField(),
             _registerFormNameField(),
             _registerFormEmailField(),
             _registerFormPasswordField(),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _registerAvatarField() {
+
+    // If no avatar has been picked yet, a stock avatar will be used in the form
+    late ImageProvider formAvatar;
+    if(registerAvatar == null) {
+      formAvatar = const NetworkImage('https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png');
+    } else {
+      formAvatar = FileImage(registerAvatar!);
+    }  
+
+    return GestureDetector(
+      onTap: (){
+        FilePicker.platform.pickFiles(type: FileType.image).then((pickedFiles) {
+          setState(() {
+            registerAvatar = File(pickedFiles!.files.first.path!);  
+          });
+        });
+      },
+      child: Container(
+        height: _deviceHeight * 0.15,
+        width: _deviceHeight * 0.15,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            image: formAvatar,
+          )
         ),
       ),
     );
@@ -125,8 +161,8 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   void _registerUser() {
-    if(_registerFormKey.currentState!.validate()){
-
+    if(_registerFormKey.currentState!.validate() && registerAvatar != null){
+      _registerFormKey.currentState!.save();
     }
   }
 
