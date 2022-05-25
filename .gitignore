@@ -48,3 +48,9 @@ app.*.map.json
 
 # Config
 */assets/config
+finstagram/.vscode/launch.json
+finstagram/android/app/src/main/java/io/flutter/app/FlutterMultiDexApplication.java
+finstagram/macos/Flutter/GeneratedPluginRegistrant.swift
+finstagram/macos/Flutter/GeneratedPluginRegistrant.swift
+finstagram/macos/Flutter/GeneratedPluginRegistrant.swift
+finstagram/macos/Flutter/GeneratedPluginRegistrant.swift
