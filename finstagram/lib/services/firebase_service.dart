@@ -13,7 +13,7 @@ class FirebaseService {
   FirebaseFirestore _db = FirebaseFirestore.instance;
 
   final String usersCollection = 'users';
-  Map<String, String>? currentUser;
+  Map? currentUser;
 
   FirebaseService();
 
@@ -22,9 +22,8 @@ class FirebaseService {
   // And also assigns the user's data to the currentUser map
   Future<bool> userLogin({required String email, required String password}) async {
 
-    UserCredential userCredential = await _auth.signInWithEmailAndPassword(email: email, password: password);
-
     try {
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(email: email, password: password);
       if(userCredential.user != null) {
         currentUser = await getUserData(uid: userCredential.user!.uid);
         return true;
@@ -43,9 +42,9 @@ class FirebaseService {
   //    - (String) image
   //    - (String) name
   // This method will return the fields as a map based on the provided UID
-  Future<Map<String, String>> getUserData({required String uid}) async {
+  Future<Map> getUserData({required String uid}) async {
     DocumentSnapshot doc = await _db.collection(usersCollection).doc(uid).get();
-    return doc.data() as Map<String, String>;
+    return doc.data() as Map;
   }
 
 }
