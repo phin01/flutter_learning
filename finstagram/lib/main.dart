@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      initialRoute: 'home',
+      initialRoute: 'login',
       routes: routeMap,
       home: const Scaffold(),
     );

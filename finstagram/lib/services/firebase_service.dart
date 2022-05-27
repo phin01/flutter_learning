@@ -129,4 +129,9 @@ class FirebaseService {
     }
   }
 
+  // This method will return a Stream from the collection of posts in descending order
+  Stream<QuerySnapshot> getLatestPosts() {
+    return _db.collection(postsCollection).orderBy('timestamp', descending: true).snapshots();
+  }
+
 }
