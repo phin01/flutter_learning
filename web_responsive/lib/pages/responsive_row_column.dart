@@ -13,6 +13,7 @@ class _ResponsiveRowColumnState extends State<ResponsiveRowColumn> {
   Widget build(BuildContext context) {
 
     return Scaffold(
+      appBar: AppBar(title: const Text('Responsive Expanded Columns and Rows')),
       body: Column(
         children: [
           Expanded(flex: 2, child: Container(color: Colors.red,)),
