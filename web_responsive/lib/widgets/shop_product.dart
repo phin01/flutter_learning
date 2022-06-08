@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class ShopProduct extends StatelessWidget {
 
@@ -21,8 +22,8 @@ class ShopProduct extends StatelessWidget {
         child: Column(
           children: [
             Expanded(flex: 8, child: Image.asset('assets/img/$_imagePath')),
-            Expanded(flex: 1, child: Text(_description)),
-            Expanded(flex: 1, child: Text("R\$ $_price", style: const TextStyle(fontWeight: FontWeight.bold))),
+            Expanded(flex: 1, child: AutoSizeText(_description, minFontSize: 10,)),
+            Expanded(flex: 1, child: AutoSizeText("R\$ $_price", minFontSize: 10, style: const TextStyle(fontWeight: FontWeight.bold))),
           ],
         ),
       ),
