@@ -23,7 +23,16 @@ class _ResponsiveLayoutState extends State<ResponsiveLayout> {
   Widget _responsiveLayout() {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        
+
+        double _layoutWidth = constraints.maxWidth;
+
+        if(_layoutWidth < 600) {
+          return const Text('small devices');
+        } else if(_layoutWidth < 960) {
+          return const Text('medium devices');
+        } else {
+          return const Text('large devices');
+        }
       },
     );
   }
