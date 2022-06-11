@@ -50,45 +50,46 @@ List<User> dummyOnlineUsers = [
   ),
 ];
 
-/*
+
 /* Lista de estórias */
-List<Estoria> estorias = [
-  Estoria(
-      usuario: usuariosOnline[0],
-      urlImagem: "https://source.unsplash.com/JMWjOup32Fk/800x600",
-      foiVisualizado: true,
+List<Story> dummyStories = [
+  Story(
+      storyCreator: dummyOnlineUsers[0],
+      storyImageURL: "https://source.unsplash.com/JMWjOup32Fk/800x600",
+      storySeen: true,
   ),
-  Estoria(
-      usuario: usuariosOnline[1],
-      urlImagem: "https://source.unsplash.com/no_TCkPUq_s/800x600",
-      foiVisualizado: true,
+  Story(
+      storyCreator: dummyOnlineUsers[1],
+      storyImageURL: "https://source.unsplash.com/no_TCkPUq_s/800x600",
+      storySeen: true,
   ),
-  Estoria(
-      usuario: usuariosOnline[2],
-      urlImagem: "https://source.unsplash.com/6dX5TPPM34M/800x600"
+  Story(
+      storyCreator: dummyOnlineUsers[2],
+      storyImageURL: "https://source.unsplash.com/6dX5TPPM34M/800x600"
   ),
-  Estoria(
-      usuario: usuariosOnline[3],
-      urlImagem: "https://source.unsplash.com/PO7CGnoDFUI/800x600"
+  Story(
+      storyCreator: dummyOnlineUsers[3],
+      storyImageURL: "https://source.unsplash.com/PO7CGnoDFUI/800x600"
   ),
-  Estoria(
-      usuario: usuariosOnline[4],
-      urlImagem: "https://source.unsplash.com/rewyZqUwAqY/800x600"
+  Story(
+      storyCreator: dummyOnlineUsers[4],
+      storyImageURL: "https://source.unsplash.com/rewyZqUwAqY/800x600"
   ),
-  Estoria(
-      usuario: usuariosOnline[5],
-      urlImagem: "https://source.unsplash.com/1HpQU1evGK8/800x600"
+  Story(
+      storyCreator: dummyOnlineUsers[5],
+      storyImageURL: "https://source.unsplash.com/1HpQU1evGK8/800x600"
   ),
-  Estoria(
-      usuario: usuariosOnline[6],
-      urlImagem: "https://source.unsplash.com/W9z_628BBpc/800x600"
+  Story(
+      storyCreator: dummyOnlineUsers[6],
+      storyImageURL: "https://source.unsplash.com/W9z_628BBpc/800x600"
   ),
-  Estoria(
-      usuario: usuariosOnline[7],
-      urlImagem: "https://source.unsplash.com/DOb-2jd0sbc/800x600"
+  Story(
+      storyCreator: dummyOnlineUsers[7],
+      storyImageURL: "https://source.unsplash.com/DOb-2jd0sbc/800x600"
   ),
 ];
 
+/*
 /* Lista de postagens */
 List<Postagem> postagens = [
   Postagem(
