@@ -17,7 +17,7 @@ class StoryCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           child: CachedNetworkImage(
             imageUrl: currentStory.storyImageURL,
-            height: 100,
+            height: double.infinity,
             width: 110,
             fit: BoxFit.cover,
           ),
